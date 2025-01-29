@@ -1,0 +1,9 @@
+{
+  "Print to console": {
+    "prefix": "cl", // Trigger keyword
+    "body": [
+      "console.log();" // Code template with $1 as a placeholder
+    ],
+    "description": "Log output to the console" // Description of the snippet
+  }
+}
