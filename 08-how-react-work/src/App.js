@@ -19,39 +19,36 @@ const content = [
 ];
 
 export default function App() {
-  return (
-    <div>
-      <Tabbed content={content} />
-    </div>
-  );
+  return <div>{<Tabbed content={content} />}</div>;
 }
 
 function Tabbed({ content }) {
   const [activeTab, setActiveTab] = useState(0);
-
   return (
     <div>
       <div className="tabs">
-        <Tab num={0} activeTab={activeTab} onClick={setActiveTab} />
-        <Tab num={1} activeTab={activeTab} onClick={setActiveTab} />
-        <Tab num={2} activeTab={activeTab} onClick={setActiveTab} />
-        <Tab num={3} activeTab={activeTab} onClick={setActiveTab} />
+        <Tab num={0} activeTab={activeTab} onSetActiveTab={setActiveTab} />
+        <Tab num={1} activeTab={activeTab} onSetActiveTab={setActiveTab} />
+        <Tab num={2} activeTab={activeTab} onSetActiveTab={setActiveTab} />
+        <Tab num={3} activeTab={activeTab} onSetActiveTab={setActiveTab} />
       </div>
-
       {activeTab <= 2 ? (
-        <TabContent item={content.at(activeTab)} />
+        <TabContent
+          item={content[activeTab]}
+          key={content[activeTab].summary}
+        />
       ) : (
-        <DifferentContent />
+        <DifferentTab />
       )}
     </div>
   );
 }
 
-function Tab({ num, activeTab, onClick }) {
+function Tab({ num, activeTab, onSetActiveTab }) {
   return (
     <button
       className={activeTab === num ? "tab active" : "tab"}
-      onClick={() => onClick(num)}
+      onClick={() => onSetActiveTab(num)}
     >
       Tab {num + 1}
     </button>
@@ -68,21 +65,19 @@ function TabContent({ item }) {
 
   return (
     <div className="tab-content">
-      <h4>{item.summary}</h4>
-      {showDetails && <p>{item.details}</p>}
+      <h2> {item.summary} </h2>
+      {showDetails && <p> {item.details} </p>}
 
       <div className="tab-actions">
         <button onClick={() => setShowDetails((h) => !h)}>
-          {showDetails ? "Hide" : "Show"} details
+          {showDetails ? "hide" : "show"} details
         </button>
-
         <div className="hearts-counter">
           <span>{likes} ❤️</span>
           <button onClick={handleInc}>+</button>
           <button>+++</button>
         </div>
       </div>
-
       <div className="tab-undo">
         <button>Undo</button>
         <button>Undo in 2s</button>
@@ -91,7 +86,7 @@ function TabContent({ item }) {
   );
 }
 
-function DifferentContent() {
+function DifferentTab() {
   return (
     <div className="tab-content">
       <h4>I'm a DIFFERENT tab, so I reset state 💣💥</h4>
