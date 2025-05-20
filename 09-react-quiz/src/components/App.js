@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Loader from "./Loader";
@@ -90,11 +90,13 @@ export default function App() {
         console.log(data);
         dispatch({ type: "dataArrived", payload: data });
       } catch (err) {
+      } catch (err) {
         console.error("Error fetching data:", err);
         dispatch({ type: "dataFailed" });
       }
     }
     fetchData();
+  }, []);
   }, []);
   return (
     <div className="app">
