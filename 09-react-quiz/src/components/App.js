@@ -90,13 +90,11 @@ export default function App() {
         console.log(data);
         dispatch({ type: "dataArrived", payload: data });
       } catch (err) {
-      } catch (err) {
         console.error("Error fetching data:", err);
         dispatch({ type: "dataFailed" });
       }
     }
     fetchData();
-  }, []);
   }, []);
   return (
     <div className="app">
